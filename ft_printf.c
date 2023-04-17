@@ -6,7 +6,7 @@
 /*   By: earriaga <earriaga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:27:06 by earriaga          #+#    #+#             */
-/*   Updated: 2023/03/16 14:39:23 by earriaga         ###   ########.fr       */
+/*   Updated: 2023/04/17 17:06:04 by earriaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,35 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 #include <stdarg.h>
+
+int hola(va_list hello)
+{
+	
+}
 
 int	ft_printf(const char *str, ...)
 {
 	va_list args;
 	va_start(args, str);
 	int	i;
+	int var_num;
+
+	if (!str)
+		return (NULL);
+	i = 0;
+	var_num = 0;
+	while (str[i])
+	{
+		if (str[i - 1] == '%' && str[i] != '%')
+		{
+			if (str[i] == s)
+				char
+		}
+			var_num ++;
+		i ++;
+	}
 
 	// Access the variable argument list using va_arg macro
 	int arg1 = va_arg(args, int);
@@ -55,5 +77,7 @@ int	ft_printf(const char *str, ...)
 
 int	main(void)
 {
+	char *var = "estás";
+	ft_printf("Hola como %s", var);
 	return (0);
 }
