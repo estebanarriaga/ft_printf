@@ -6,7 +6,11 @@
 /*   By: earriaga <earriaga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:27:06 by earriaga          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/05/05 17:50:03 by earriaga         ###   ########.fr       */
+=======
+/*   Updated: 2023/04/17 17:06:04 by earriaga         ###   ########.fr       */
+>>>>>>> 220da7ff99e2171065a0512c8e2e476b367e86bb
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +66,32 @@ int ft_type(const char type, va_list args)
 	return (str_size);
 }
 
+int hola(va_list hello)
+{
+	
+}
+
 int	ft_printf(const char *str, ...)
 {
 	va_list args;
 	int str_size;
 	int	i;
+	int var_num;
+
+	if (!str)
+		return (NULL);
+	i = 0;
+	var_num = 0;
+	while (str[i])
+	{
+		if (str[i - 1] == '%' && str[i] != '%')
+		{
+			if (str[i] == s)
+				char
+		}
+			var_num ++;
+		i ++;
+	}
 
 	if (!str)
 		return (0);
@@ -96,6 +121,7 @@ int	ft_printf(const char *str, ...)
 
 int	main(void)
 {
+<<<<<<< HEAD
 	char *var = "estas";
 	char *name = "Esteban";
 	int ft_size;
@@ -106,5 +132,9 @@ int	main(void)
 	
 	printf("ft_size == %d\nor_size == %d\n", ft_size, or_size);
 	
+=======
+	char *var = "estás";
+	ft_printf("Hola como %s", var);
+>>>>>>> 220da7ff99e2171065a0512c8e2e476b367e86bb
 	return (0);
 }
