@@ -6,7 +6,7 @@
 /*   By: earriaga <earriaga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:27:06 by earriaga          #+#    #+#             */
-/*   Updated: 2023/03/16 14:39:23 by earriaga         ###   ########.fr       */
+/*   Updated: 2023/05/05 17:50:03 by earriaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,79 @@
  * %u Imprime un número decimal (base 10) sin signo.
  * %x Imprime un número hexadecimal (base 16) en minúsculas.
  * %X Imprime un número hexadecimal (base 16) en mayúsculas.
- * % % para imprimir el símbolo del porcentaje.
+ * %% para imprimir el símbolo del porcentaje.
  */
 
 #include <stdio.h>
+#include <string.h>
 #include <stdarg.h>
+#include <unistd.h>
+#include "libftprintf.h"
+
+int ft_print_string(const char *str)
+{
+	if (!str)
+		write(1, "(NULL)", 7);
+	else if (str)
+		write(1, str, ft_strlen(str));
+	return ((int)ft_strlen(str));
+}
+
+int ft_type(const char type, va_list args)
+{
+	int	str_size;
+
+	str_size = 0;
+	if (type == 's' )
+		str_size = ft_print_string(va_arg(args, const char *));
+	else if (type == 'c' )
+		str_size = ft_print_char(va_arg(args, const char *));
+	return (str_size);
+}
 
 int	ft_printf(const char *str, ...)
 {
 	va_list args;
-	va_start(args, str);
+	int str_size;
 	int	i;
 
-	// Access the variable argument list using va_arg macro
-	int arg1 = va_arg(args, int);
-	double arg2 = va_arg(args, double);
-	char *arg3 = va_arg(args, char *);
-
+	if (!str)
+		return (0);
+	i = 0;
+	str_size = 0;
+	va_start(args, str);
+	while (str[i])
+	{
+		if (str[i] == '%')
+		{
+			str_size += ft_type(str[i + 1], args);
+			i ++;
+		}
+		else
+			ft_putchar(str[i]);
+		str_size ++;
+		i ++;
+	}
 	va_end(args);
-	return (0);
+	return (str_size);
 }
+
+// // Access the variable argument list using va_arg macro
+// int arg1 = va_arg(args, int);
+// double arg2 = va_arg(args, double);
+// char *arg3 = va_arg(args, char *);
 
 int	main(void)
 {
+	char *var = "estas";
+	char *name = "Esteban";
+	int ft_size;
+	int or_size;
+
+	ft_size = ft_printf("Hola como %s me llamo %s\n", var, name);
+	or_size = printf("Hola como %s me llamo %s\n", var, name);
+	
+	printf("ft_size == %d\nor_size == %d\n", ft_size, or_size);
+	
 	return (0);
 }
