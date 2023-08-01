@@ -121,7 +121,6 @@ int	ft_printf(const char *str, ...)
 
 int	main(void)
 {
-<<<<<<< HEAD
 	char *var = "estas";
 	char *name = "Esteban";
 	int ft_size;
@@ -132,9 +131,7 @@ int	main(void)
 	
 	printf("ft_size == %d\nor_size == %d\n", ft_size, or_size);
 	
-=======
 	char *var = "estás";
 	ft_printf("Hola como %s", var);
->>>>>>> 220da7ff99e2171065a0512c8e2e476b367e86bb
 	return (0);
 }
