@@ -6,11 +6,7 @@
 /*   By: earriaga <earriaga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:27:06 by earriaga          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/05/05 17:50:03 by earriaga         ###   ########.fr       */
-=======
-/*   Updated: 2023/04/17 17:06:04 by earriaga         ###   ########.fr       */
->>>>>>> 220da7ff99e2171065a0512c8e2e476b367e86bb
+/*   Updated: 2023/09/02 16:24:40 by earriaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,100 +35,112 @@
  * %% para imprimir el símbolo del porcentaje.
  */
 
-
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
 #include <unistd.h>
 #include "libftprintf.h"
+#include "../Libft/libft.h"
 
-int ft_print_string(const char *str)
+static int ft_count_format_specifiers(const char *str)
 {
-	if (!str)
-		write(1, "(NULL)", 7);
-	else if (str)
-		write(1, str, ft_strlen(str));
-	return ((int)ft_strlen(str));
-}
-
-int ft_type(const char type, va_list args)
-{
-	int	str_size;
-
-	str_size = 0;
-	if (type == 's' )
-		str_size = ft_print_string(va_arg(args, const char *));
-	else if (type == 'c' )
-		str_size = ft_print_char(va_arg(args, const char *));
-	return (str_size);
-}
-
-int hola(va_list hello)
-{
+	int counted_specifiers;
+	const char *p = str;
 	
+	counted_specifiers = 0;
+	while (*p != '\0')
+	{
+		if (*p == '%')
+			counted_specifiers ++;
+		p ++;
+	}
+	return (counted_specifiers);
+}
+
+// Por ahora no va a hacer falta:
+static char *ft_get_format_specifiers(const char *str)
+{
+	const char *p = str;
+	int counter;
+	size_t p_size;
+	char *specifiers;
+	char specifiers_count;
+
+	counter = 0;
+	specifiers = 0;
+	p_size = ft_strlen(p);
+	specifiers = (char *)malloc(5);
+	while (counter <= p_size)
+	{
+		if (p[counter] == '%')
+			if (p[counter + 1])
+			{
+				specifiers[specifiers_count] = p[counter + 1];
+				specifiers_count++;
+			}
+		counter ++;
+	}
+	return (specifiers);
+}
+
+int ft_print_variable(va_list ap, char c)
+{
+	if (c == 0) return (0);
+	else if (c == 'c')
+		write(1, "character", 1);
+	else if (c == 's')
+		write(1, va_arg(ap, char *), 1);
+	else
+		return (0);
 }
 
 int	ft_printf(const char *str, ...)
 {
-	va_list args;
-	int str_size;
-	int	i;
-	int var_num;
-
-	if (!str)
-		return (NULL);
-	i = 0;
-	var_num = 0;
-	while (str[i])
+	va_list ap, ap2;
+	
+	va_start(ap, str);
+	int count;
+	char *s, *s2;
+	int num_args;
+	char *specifiers;
+	char percentage = '%';
+	
+		/* Por ahora no va a hacer falta
+	num_args = ft_count_format_specifiers(str);
+	printf("num_args: %d\n", num_args); */
+		/* Por ahora no va a hacer falta
+	specifiers = ft_get_format_specifiers(str);
+	printf("Specifiers: %s\n", speci fiers); */
+	count = 0;
+	printf("str = %s\n", str);
+	while (str[count] != 0)
 	{
-		if (str[i - 1] == '%' && str[i] != '%')
+		if (str[count] == '%')
 		{
-			if (str[i] == s)
-				char
-		}
-			var_num ++;
-		i ++;
+			if (str[count + 1] == '%')
+				write(1, &percentage, 1);
+			else
+				ft_print_variable(ap, str[count + 1]);
+			count++;
+		} else count ++;
 	}
-
-	if (!str)
-		return (0);
-	i = 0;
-	str_size = 0;
-	va_start(args, str);
-	while (str[i])
-	{
-		if (str[i] == '%')
-		{
-			str_size += ft_type(str[i + 1], args);
-			i ++;
-		}
-		else
-			ft_putchar(str[i]);
-		str_size ++;
-		i ++;
-	}
-	va_end(args);
-	return (str_size);
+	va_end(ap);
+	return (0);
 }
 
-// // Access the variable argument list using va_arg macro
-// int arg1 = va_arg(args, int);
-// double arg2 = va_arg(args, double);
-// char *arg3 = va_arg(args, char *);
 
 int	main(void)
 {
-	char *var = "estas";
-	char *name = "Esteban";
+	char var = 'a';
+	char name[] = "Esteban";
 	int ft_size;
 	int or_size;
 
-	ft_size = ft_printf("Hola como %s me llamo %s\n", var, name);
-	or_size = printf("Hola como %s me llamo %s\n", var, name);
-	
-	printf("ft_size == %d\nor_size == %d\n", ft_size, or_size);
-	
-	char *var = "estás";
-	ft_printf("Hola como %s", var);
+	ft_printf("Hola como %c me llamo %s", var, name);
+	// ft_size = ft_printf("Hola como %s me llamo %s\n", var, name);
+	// or_size = printf("Hola como %s me llamo %s\n", var, name);
+
+	// printf("or_size: %d\n ft_size: %d\n", or_size, ft_size);
+
 	return (0);
 }
