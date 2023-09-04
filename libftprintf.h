@@ -1,16 +1,19 @@
 #ifndef FT_PRINTF
 # define FT_PRINTF
 
-#include <stdlib.h>
-#include <unistd.h>
 #include <stdio.h>
+#include <string.h>
+#include <stdarg.h>
+#include <unistd.h>
+#include "libftprintf.h"
+#include "Libft/libft.h"
 
-/**
- * The ft_strlen() function computes the length of the string s.
- * Missing error handling
-*/
-size_t	ft_strlen(const char *str);
-
-int	ft_putchar(int c);
+int	ft_printf(const char *str, ...);
+int ft_print_char(va_list ap);
+int ft_print_str(va_list ap);
+int ft_print_int(va_list ap);
+int ft_print_ptr_hex(va_list ap);
+int ft_print_ptr_hex_upper(va_list ap);
+int ft_print_hex(va_list ap);
 
 #endif
