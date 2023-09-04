@@ -6,7 +6,7 @@
 /*   By: earriaga <earriaga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:27:06 by earriaga          #+#    #+#             */
-/*   Updated: 2023/09/02 16:24:40 by earriaga         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:28:01 by earriaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include "libftprintf.h"
-#include "../Libft/libft.h"
+#include "Libft/libft.h"
 
 static int ft_count_format_specifiers(const char *str)
 {
@@ -57,41 +57,24 @@ static int ft_count_format_specifiers(const char *str)
 	return (counted_specifiers);
 }
 
-// Por ahora no va a hacer falta:
-static char *ft_get_format_specifiers(const char *str)
-{
-	const char *p = str;
-	int counter;
-	size_t p_size;
-	char *specifiers;
-	char specifiers_count;
 
-	counter = 0;
-	specifiers = 0;
-	p_size = ft_strlen(p);
-	specifiers = (char *)malloc(5);
-	while (counter <= p_size)
-	{
-		if (p[counter] == '%')
-			if (p[counter + 1])
-			{
-				specifiers[specifiers_count] = p[counter + 1];
-				specifiers_count++;
-			}
-		counter ++;
-	}
-	return (specifiers);
-}
-
-int ft_print_variable(va_list ap, char c)
+static int ft_print_variable(va_list ap, char c)
 {
+	size_t size;
+
+	size = 0;
 	if (c == 0) return (0);
 	else if (c == 'c')
-		write(1, "character", 1);
+		size = write(1, "n", 1);
 	else if (c == 's')
-		write(1, va_arg(ap, char *), 1);
-	else
-		return (0);
+		size = ft_print_str(ap);
+	else if (c == 'i')
+		size = ft_print_int(ap);
+	else if (c == 'p')
+		size = ft_print_ptr_hex(ap);
+	else if (c == 'x')
+		size = ft_print_hex(ap);
+	return (size);
 }
 
 int	ft_printf(const char *str, ...)
@@ -102,45 +85,30 @@ int	ft_printf(const char *str, ...)
 	int count;
 	char *s, *s2;
 	int num_args;
-	char *specifiers;
+	size_t str_size;
 	char percentage = '%';
 	
-		/* Por ahora no va a hacer falta
 	num_args = ft_count_format_specifiers(str);
-	printf("num_args: %d\n", num_args); */
-		/* Por ahora no va a hacer falta
-	specifiers = ft_get_format_specifiers(str);
-	printf("Specifiers: %s\n", speci fiers); */
 	count = 0;
+	str_size = 0;
 	printf("str = %s\n", str);
-	while (str[count] != 0)
+	while (str[count] != 0 && str[count])
 	{
 		if (str[count] == '%')
 		{
 			if (str[count + 1] == '%')
-				write(1, &percentage, 1);
+				str_size += write(1, &percentage, 1);
 			else
-				ft_print_variable(ap, str[count + 1]);
-			count++;
-		} else count ++;
+				str_size += ft_print_variable(ap, str[count + 1]);
+			count += 2;
+		} else
+		{
+			write(1, &str[count], 1);
+			count ++;
+		}
 	}
+	str_size += count - num_args * 2;
 	va_end(ap);
-	return (0);
+	return (str_size);
 }
 
-
-int	main(void)
-{
-	char var = 'a';
-	char name[] = "Esteban";
-	int ft_size;
-	int or_size;
-
-	ft_printf("Hola como %c me llamo %s", var, name);
-	// ft_size = ft_printf("Hola como %s me llamo %s\n", var, name);
-	// or_size = printf("Hola como %s me llamo %s\n", var, name);
-
-	// printf("or_size: %d\n ft_size: %d\n", or_size, ft_size);
-
-	return (0);
-}
