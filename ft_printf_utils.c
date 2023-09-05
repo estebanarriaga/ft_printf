@@ -6,12 +6,12 @@
 
 int ft_print_char(va_list ap)
 {
-	char *c;
+	char c;
 	int size;
 
 	size = 0;
-	c = va_arg(ap, char *);
-	size = write(1, c, 1);
+	c = va_arg(ap, int);
+	size = write(1, &c, 1);
 	return (size);
 }
 
