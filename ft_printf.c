@@ -6,7 +6,7 @@
 /*   By: earriaga <earriaga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:27:06 by earriaga          #+#    #+#             */
-/*   Updated: 2023/09/04 17:28:01 by earriaga         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:05:41 by earriaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,12 @@
 #include "libftprintf.h"
 #include "Libft/libft.h"
 
-static int ft_count_format_specifiers(const char *str)
+static int	ft_count_format_specifiers(const char *str)
 {
-	int counted_specifiers;
-	const char *p = str;
-	
+	int					counted_specifiers;
+	const char	*p;
+
+	p = str;
 	counted_specifiers = 0;
 	while (*p != '\0')
 	{
@@ -57,15 +58,15 @@ static int ft_count_format_specifiers(const char *str)
 	return (counted_specifiers);
 }
 
-
-static int ft_print_variable(va_list ap, char c)
+static int	ft_print_variable(va_list ap, char c)
 {
-	size_t size;
+	size_t	size;
 
 	size = 0;
-	if (c == 0) return (0);
+	if (c == 0)
+		return (0);
 	else if (c == 'c')
-		size = write(1, "n", 1);
+		size = ft_print_char(ap);
 	else if (c == 's')
 		size = ft_print_str(ap);
 	else if (c == 'i')
@@ -79,15 +80,14 @@ static int ft_print_variable(va_list ap, char c)
 
 int	ft_printf(const char *str, ...)
 {
-	va_list ap, ap2;
-	
+	va_list	ap;
+	int			count;
+	int			num_args;
+	size_t	str_size;
+	char		percentage;
+
+	percentage = '%';
 	va_start(ap, str);
-	int count;
-	char *s, *s2;
-	int num_args;
-	size_t str_size;
-	char percentage = '%';
-	
 	num_args = ft_count_format_specifiers(str);
 	count = 0;
 	str_size = 0;
@@ -101,7 +101,8 @@ int	ft_printf(const char *str, ...)
 			else
 				str_size += ft_print_variable(ap, str[count + 1]);
 			count += 2;
-		} else
+		}
+		else
 		{
 			write(1, &str[count], 1);
 			count ++;
@@ -110,5 +111,4 @@ int	ft_printf(const char *str, ...)
 	str_size += count - num_args * 2;
 	va_end(ap);
 	return (str_size);
-}
-
+} 
