@@ -6,7 +6,7 @@ NAME = libftprintf.a
 
 CC = gcc
 
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 
 MY_SOURCES = ft_printf.c ft_printf_utils.c
 
@@ -19,7 +19,7 @@ $(NAME): $(MY_OBJECTS) libftprintf.h Libft/libft.h
 
 all:	$(NAME)
 
-test: $(MY_TESTS) Libft/libft.a libftprintf.a
+test: $(MY_TESTS) libft.a libftprintf.a
 
 clean:
 		@rm -f $(MY_OBJECTS)
