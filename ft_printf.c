@@ -6,7 +6,7 @@
 /*   By: earriaga <earriaga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:27:06 by earriaga          #+#    #+#             */
-/*   Updated: 2023/09/05 16:05:41 by earriaga         ###   ########.fr       */
+/*   Updated: 2023/09/12 19:11:47 by earriaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,22 @@
  * El uso de libtool command is forbidden.
  * Tu archivo libftprintf.a deberá ser creado en la raiz de tu repositorio.
  * 
- * %c Imprime un solo carácter.
- * %s Imprime una string (como se define por defecto en C.
- * %p El puntero void * dado como argumento se imprime en formato hexadecimal.
+ * -- %c Imprime un solo carácter.
+ * -- %s Imprime una string (como se define por defecto en C.
+ * -- %p El puntero void * dado como argumento se imprime en formato hexadecimal.
  * %d Imprime un número decimal (base 10).
- * %i Imprime un entero en base 10.
- * %u Imprime un número decimal (base 10) sin signo.
- * %x Imprime un número hexadecimal (base 16) en minúsculas.
- * %X Imprime un número hexadecimal (base 16) en mayúsculas.
- * %% para imprimir el símbolo del porcentaje.
+ * -- %i Imprime un entero en base 10.
+ * -- %u Imprime un número decimal (base 10) sin signo.
+ * -- %x Imprime un número hexadecimal (base 16) en minúsculas.
+ * -- %X Imprime un número hexadecimal (base 16) en mayúsculas.
+ * -- %% para imprimir el símbolo del porcentaje.
  */
 
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
 #include <unistd.h>
-#include "libftprintf.h"
-#include "Libft/libft.h"
+#include "ft_printf.h"
 
 static int	ft_count_format_specifiers(const char *str)
 {
@@ -71,10 +70,16 @@ static int	ft_print_variable(va_list ap, char c)
 		size = ft_print_str(ap);
 	else if (c == 'i')
 		size = ft_print_int(ap);
+	else if (c == 'd')
+		size = ft_print_decimal(ap);
 	else if (c == 'p')
 		size = ft_print_ptr_hex(ap);
 	else if (c == 'x')
-		size = ft_print_hex(ap);
+		size = ft_print_hex(ap, 'a');
+	else if (c == 'X')
+		size = ft_print_hex(ap, 'A');
+	else if (c == 'u')
+		size = ft_print_unsigned(ap);
 	return (size);
 }
 
@@ -91,16 +96,19 @@ int	ft_printf(const char *str, ...)
 	num_args = ft_count_format_specifiers(str);
 	count = 0;
 	str_size = 0;
-	printf("str = %s\n", str);
-	while (str[count] != 0 && str[count])
+	while (str[count])
 	{
 		if (str[count] == '%')
 		{
 			if (str[count + 1] == '%')
+			{
 				str_size += write(1, &percentage, 1);
-			else
+				count ++;
+			}
+			else {
 				str_size += ft_print_variable(ap, str[count + 1]);
-			count += 2;
+				count += 2;
+			}
 		}
 		else
 		{
