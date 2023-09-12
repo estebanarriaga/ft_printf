@@ -8,13 +8,13 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 
-MY_SOURCES = ft_printf.c ft_printf_utils.c
+MY_SOURCES = ft_printf.c ft_printf_utils.c libft_utils.c
 
-MY_TESTS = tests/main.c
+MY_TESTS = main.c
 
 MY_OBJECTS = $(MY_SOURCES:.c=.o)
 
-$(NAME): $(MY_OBJECTS) libftprintf.h Libft/libft.h
+$(NAME): $(MY_OBJECTS) ft_printf.h Libft/libft.h
 			@ar rcs $(NAME) $(MY_OBJECTS)
 
 all:	$(NAME)
