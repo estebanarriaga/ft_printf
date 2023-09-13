@@ -6,7 +6,7 @@
 /*   By: earriaga <earriaga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:27:06 by earriaga          #+#    #+#             */
-/*   Updated: 2023/09/12 19:11:47 by earriaga         ###   ########.fr       */
+/*   Updated: 2023/09/13 13:35:03 by earriaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,36 +35,16 @@
  * -- %% para imprimir el símbolo del porcentaje.
  */
 
-#include <stdio.h>
-#include <string.h>
 #include <stdarg.h>
 #include <unistd.h>
 #include "ft_printf.h"
-
-static int	ft_count_format_specifiers(const char *str)
-{
-	int					counted_specifiers;
-	const char	*p;
-
-	p = str;
-	counted_specifiers = 0;
-	while (*p != '\0')
-	{
-		if (*p == '%')
-			counted_specifiers ++;
-		p ++;
-	}
-	return (counted_specifiers);
-}
 
 static int	ft_print_variable(va_list ap, char c)
 {
 	size_t	size;
 
 	size = 0;
-	if (c == 0)
-		return (0);
-	else if (c == 'c')
+	if (c == 'c')
 		size = ft_print_char(ap);
 	else if (c == 's')
 		size = ft_print_str(ap);
@@ -80,6 +60,10 @@ static int	ft_print_variable(va_list ap, char c)
 		size = ft_print_hex(ap, 'A');
 	else if (c == 'u')
 		size = ft_print_unsigned(ap);
+	else if (c == '%')
+		size = ft_putchar(c);
+	else
+		size = write(1, &c, 1);
 	return (size);
 }
 
@@ -87,36 +71,24 @@ int	ft_printf(const char *str, ...)
 {
 	va_list	ap;
 	int			count;
-	int			num_args;
-	size_t	str_size;
-	char		percentage;
+	int			str_length;
 
-	percentage = '%';
 	va_start(ap, str);
-	num_args = ft_count_format_specifiers(str);
 	count = 0;
-	str_size = 0;
+	str_length = 0;
 	while (str[count])
 	{
 		if (str[count] == '%')
 		{
-			if (str[count + 1] == '%')
-			{
-				str_size += write(1, &percentage, 1);
-				count ++;
-			}
-			else {
-				str_size += ft_print_variable(ap, str[count + 1]);
-				count += 2;
-			}
+			if (ft_strlen(str) > (size_t)count + 1)
+				str_length += ft_print_variable(ap, str[count + 1]);
+			count++;
 		}
 		else
-		{
-			write(1, &str[count], 1);
-			count ++;
-		}
+			str_length += write(1, &str[count], 1);
+		count++;
 	}
-	str_size += count - num_args * 2;
+
 	va_end(ap);
-	return (str_size);
+	return (str_length);
 } 
