@@ -1,6 +1,22 @@
 
 #include <unistd.h>
 
+size_t	ft_strlen(const char *str)
+{
+	size_t	x;
+
+	x = 0;
+	while (str[x] != '\0')
+		x++;
+	return (x);
+}
+
+int	ft_putchar(char c)
+{
+	write(1, &c, 1);
+	return (1);
+}
+
 int	ft_putnbr(int n)
 {
 	int index;
@@ -30,4 +46,14 @@ int	ft_putnbr(int n)
 		index ++;
 	}
 	return (index);
+}
+
+int	ft_putstr(char *s)
+{
+	int size;
+
+	size = 0;
+	if (s)
+		write(1, s, ft_strlen(s));
+	return (size);
 }
