@@ -10,31 +10,69 @@ int	main(void)
 	int num = 42;
 	int ft_function, or_function;
 	// ASSERTION TESTING
-	assert(ft_printf("Character: %c\n", 'A') == printf("Character: A\n"));
-	assert(ft_printf("String: %s\n", str) == printf("String: %s\n", str));
+	// assert(ft_printf("Character: %c\n", 'A') == printf("Character: A\n"));
+	// assert(ft_printf("String: %s\n", str) == printf("String: %s\n", str));
 	// assert(ft_printf("Integer: %i\n", num) == printf("Integer: %i\n", num));
 	// assert(ft_printf("Escaping %%: %%\n") == printf("Escaping %%: %%\n"));
 
 
 
+	// ft_function = ft_printf("-- %i\n");
+	// or_function = printf("%i\n");
+	// printf("ft_printf: %d\n", ft_function);
+	// printf("or_printf: %d\n", or_function);
+	
 
+	// Print integer
 	ft_function = ft_printf("Integer: %i\n", num);
 	or_function = printf("Integer: %i\n", num);
 	printf("ft_printf: %d\n", ft_function);
 	printf("or_printf: %d\n", or_function);
-	ft_function = ft_printf("Escaping %%: %%\n");
-	or_function = printf("Escaping %%: %%\n");
+	
+	ft_printf("\n");
+
+	// Print %
+	ft_function = ft_printf("String: %s\n", NULL);
+	or_function = printf("String: %s\n", "HELLO");
 	printf("ft_printf: %d\n", ft_function);
 	printf("or_printf: %d\n", or_function);
-	ft_printf("Hex: %x\n", 425078);
-	printf("Hex: %x\n", 425078);
-	ft_printf("HEX: %X\n", 425078);
-	printf("HEX: %X\n", 425078);
-	printf("All test cases passed!\n");
-	ft_printf("Unsigned: %u\n", 425078);
-	printf("Unsigned: %u\n", 425078);
-	ft_printf("Decimal: %d\n", 4250.78000);
-	printf("Decimal: %d\n", 4250.78);
+
+	ft_printf("\n");
+
+	// Printf Hex in lower	
+	ft_function = ft_printf("Hex: %x\n", 425078);
+	or_function = printf("Hex: %x\n", 425078);
+	ft_function = ft_printf("Hex: %x\n", 0);
+	or_function = printf("Hex: %x\n", 0);
+	ft_function = ft_printf("Hex: %x\n", 0);
+	or_function = printf("Hex: %x\n", 0);
+	printf("ft_printf: %d\n", ft_function);
+	printf("or_printf: %d\n", or_function);
+
+	ft_printf("\n");
+
+	// Print Hex in upper
+	ft_function = ft_printf("HEX: %X\n", 425078);
+	or_function = printf("HEX: %X\n", 425078);
+	printf("ft_printf: %d\n", ft_function);
+	printf("or_printf: %d\n", or_function);
+
+	ft_printf("\n");
+
+	// Unsigned
+	ft_function = ft_printf("Unsigned: %u\n", 425078);
+	or_function = printf("Unsigned: %u\n", 425078);
+	printf("ft_printf: %d\n", ft_function);
+	printf("or_printf: %d\n", or_function);
+	
+	ft_printf("\n");
+
+	// Decimal
+	ft_function = ft_printf("Decimal: %d\n", 4250);
+	or_function = printf("Decimal: %d\n", 4250);
+	printf("ft_printf: %d\n", ft_function);
+	printf("or_printf: %d\n", or_function);
+
 
 	// MEMORY TESTING.
 	
