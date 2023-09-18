@@ -1,5 +1,5 @@
 
-#include "../ft_printf.h"
+#include "../include/ft_printf.h"
 #include <assert.h>
 #include <sys/time.h>
 
@@ -33,7 +33,7 @@ int	main(void)
 
 	// Print %
 	ft_function = ft_printf("String: %s\n", NULL);
-	or_function = printf("String: %s\n", "HELLO");
+	or_function = printf("String: %s\n", NULL);
 	printf("ft_printf: %d\n", ft_function);
 	printf("or_printf: %d\n", or_function);
 
@@ -42,8 +42,18 @@ int	main(void)
 	// Printf Hex in lower	
 	ft_function = ft_printf("Hex: %x\n", 425078);
 	or_function = printf("Hex: %x\n", 425078);
-	ft_function = ft_printf("Hex: %x\n", 0);
-	or_function = printf("Hex: %x\n", 0);
+	printf("ft_printf: %d\n", ft_function);
+	printf("or_printf: %d\n", or_function);
+
+	ft_printf("\n");
+
+	ft_function = ft_printf("Hex: %x\n", -1);
+	or_function = printf("Hex: %x\n", -1);
+	printf("ft_printf: %d\n", ft_function);
+	printf("or_printf: %d\n", or_function);
+
+	ft_printf("\n");
+
 	ft_function = ft_printf("Hex: %x\n", 0);
 	or_function = printf("Hex: %x\n", 0);
 	printf("ft_printf: %d\n", ft_function);
@@ -60,16 +70,30 @@ int	main(void)
 	ft_printf("\n");
 
 	// Unsigned
-	ft_function = ft_printf("Unsigned: %u\n", 425078);
-	or_function = printf("Unsigned: %u\n", 425078);
+	ft_function = ft_printf("Unsigned: %u\n", -10);
+	or_function = printf("Unsigned: %u\n", -10);
+	printf("ft_printf: %d\n", ft_function);
+	printf("or_printf: %d\n", or_function);
+	
+	ft_printf("\n");
+
+	ft_function = ft_printf("Unsigned: %u\n", -200000);
+	or_function = printf("Unsigned: %u\n", -200000);
+	printf("ft_printf: %d\n", ft_function);
+	printf("or_printf: %d\n", or_function);
+	
+	ft_printf("\n");
+
+	ft_function = ft_printf("Unsigned: %u\n", -6000023);
+	or_function = printf("Unsigned: %u\n", -6000023);
 	printf("ft_printf: %d\n", ft_function);
 	printf("or_printf: %d\n", or_function);
 	
 	ft_printf("\n");
 
 	// Decimal
-	ft_function = ft_printf("Decimal: %d\n", 4250);
-	or_function = printf("Decimal: %d\n", 4250);
+	ft_function = ft_printf("Decimal: %d\n", 5745788);
+	or_function = printf("Decimal: %d\n", 5745788);
 	printf("ft_printf: %d\n", ft_function);
 	printf("or_printf: %d\n", or_function);
 
