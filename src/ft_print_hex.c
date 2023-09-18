@@ -1,58 +1,6 @@
 
 #include "ft_printf.h"
-#include <stdarg.h>
-#include <stdlib.h>
-
-
-int ft_print_char(va_list ap)
-{
-	char c;
-	int size;
-
-	size = 0;
-	c = va_arg(ap, int);
-	size = write(1, &c, 1);
-	return (size);
-}
-
-int ft_print_str(va_list ap)
-{
-	char *str;
-	int size;
-
-	size = 0;
-	str = va_arg(ap, char *);
-	if (str == NULL)
-		size = write(1, "(null)", 6);
-	else
-		size = write(1, str, ft_strlen(str));
-	return (size);
-}
-
-// Works fine but ft_putnbt needs to return legnth of 'number'
-int ft_print_int(va_list ap)
-{
-	int number;
-	int size;
-
-	size = 0;
-	number = va_arg(ap, int);
-	if (!number)
-		printf("hello");
-	ft_putnbr(number);
-	return (size);
-}
-
-int ft_print_unsigned(va_list ap)
-{
-	unsigned number;
-	int size;
-
-	size = 0;
-	number = va_arg(ap, unsigned);
-	ft_putnbr(number);
-	return (size);
-}
+#include "libft.h"
 
 static char *ft_reverse_str(char *str, int start, int end)
 {
@@ -71,6 +19,8 @@ static char *ft_reverse_str(char *str, int start, int end)
 
 int ft_print_ptr_hex(va_list ap) {
     uintptr_t addr = va_arg(ap, uintptr_t);
+		if (!addr)
+			return (0);
     char buffer[20];
     int index = 0;
 
@@ -118,6 +68,8 @@ int ft_print_hex(va_list ap, char c)
 	int digit;
 
 	number = va_arg(ap, int);
+	if (!number)
+		return (0);
 	digit = number;
 	index = 0;
 	if (number < 0)
@@ -155,15 +107,4 @@ int ft_print_hex(va_list ap, char c)
 
 	free(buffer);
 	return (index);
-}
-
-int ft_print_decimal(va_list ap)
-{
-	int number;
-	int size;
-
-	size = 0;
-	number = va_arg(ap, int);
-	ft_putnbr(number);
-	return (size);
 }

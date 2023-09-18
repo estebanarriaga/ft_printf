@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 int	ft_printf(const char *str, ...);
 int ft_print_char(va_list ap);
@@ -13,11 +14,8 @@ int ft_print_int(va_list ap);
 int ft_print_ptr_hex(va_list ap);
 int ft_print_hex(va_list ap, char c);
 int ft_print_unsigned(va_list ap);
-int	ft_putnbr(int n);
 int ft_print_decimal(va_list ap);
 size_t	ft_strlen(const char *str);
 int	ft_putchar(char c);
-int	ft_putstr(char *s);
-
 
 #endif

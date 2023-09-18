@@ -6,7 +6,7 @@
 /*   By: earriaga <earriaga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:27:06 by earriaga          #+#    #+#             */
-/*   Updated: 2023/09/13 13:35:03 by earriaga         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:02:00 by earriaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
  * -- %c Imprime un solo carácter.
  * -- %s Imprime una string (como se define por defecto en C.
  * -- %p El puntero void * dado como argumento se imprime en formato hexadecimal.
- * %d Imprime un número decimal (base 10).
+ * -- %d Imprime un número decimal (base 10).
  * -- %i Imprime un entero en base 10.
  * -- %u Imprime un número decimal (base 10) sin signo.
  * -- %x Imprime un número hexadecimal (base 16) en minúsculas.
