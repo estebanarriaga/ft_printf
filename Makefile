@@ -1,28 +1,59 @@
 
-# Reglas:
-# $(NAME), all, clean, fclean, re
 
-NAME = libftprintf.a
+NAME		= libftprintf.a
+INCLUDE		= include
+LIBFT		= libft
+SRC_DIR		= src/
+OBJ_DIR		= obj/
+CC			= gcc
+CFLAGS		= -Wall -Werror -Wextra -I
+RM			= rm -f
+AR			= ar rcs
 
-CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+#Sources
 
-MY_SOURCES = ft_printf.c ft_printf_utils.c libft_utils.c
+SRC_FILES	=	ft_printf ft_print_chars ft_print_num ft_print_hex
 
-MY_OBJECTS = $(MY_SOURCES:.c=.o)
 
-$(NAME): $(MY_OBJECTS) ft_printf.h
-			@ar rcs $(NAME) $(MY_OBJECTS)
+SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 
-all:	$(NAME)
+###
+
+OBJF		=	.cache_exists
+
+$(NAME):	$(OBJ)
+			@make -C $(LIBFT)
+			@cp libft/libft.a .
+			@mv libft.a $(NAME)
+			@$(AR) $(NAME) $(OBJ)
+			@echo "ft_printf compiled!"
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJF)
+			@echo "Compiling: $<"
+			@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+
+$(OBJF):
+			@mkdir -p $(OBJ_DIR)
+
+all:		$(NAME)
 
 clean:
-		@rm -f $(MY_OBJECTS)
+			@$(RM) -rf $(OBJ_DIR)
+			@make clean -C $(LIBFT)
+			@echo "ft_printf object files cleaned!"
 
 fclean: clean
-		@rm -f $(NAME)
+			@$(RM) -f $(NAME)
+			@$(RM) -f $(LIBFT)/libft.a
+			@echo "ft_printf executable files cleaned!"
+			@echo "libft executable files cleaned!"
 
-re:	fclean all
+re:		fclean all
+			@echo "Cleaned and rebuilt everything for ft_printf!"
 
-.PHONY: all clean fclean re bonus
+norm:
+			@norminette $(SRC) $(INCLUDE) $(LIBFT) | grep -v Norme -B1 || true
+
+.PHONY:		all clean fclean re norm
