@@ -59,38 +59,38 @@ int ft_print_ptr_hex(va_list ap) {
 		return (index);
 }
 
+static int ft_get_number_size(unsigned int number)
+{
+	int	len;
+
+	len = 0;
+	while (number != 0)
+	{
+		number = number / 16;
+		len++;
+	}
+	return (len);
+}
+
 // Missing check if int is unsigned.
 int ft_print_hex(va_list ap, char c)
 {
 	int index;
-	int number;
+	unsigned int number;
 	char *buffer;
 	int digit;
 
-	number = va_arg(ap, int);
-	if (!number)
-		return (0);
-	digit = number;
-	index = 0;
-	if (number < 0)
+	number = va_arg(ap, unsigned int);
+	if (number == 0)
 	{
-		// buffer = (char *)malloc(9);
-		return (0);
+		write(1, "0", 1);
+		return (1);
 	}
-	while (digit > 0)
-	{
-		digit /= 16;
-		index ++;
-	}
+	index = ft_get_number_size(number);
 	buffer = (char *)malloc(index + 1);
 	if (!buffer)
 		return (0);
 	index = 0;
-	if (number == 0)
-	{
-		index = write(1, "0", 1);
-		return (index);
-	}
 	while (number > 0)
 	{
 		digit = number % 16;
