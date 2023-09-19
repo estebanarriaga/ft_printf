@@ -6,6 +6,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 int	ft_printf(const char *str, ...);
 int ft_print_char(va_list ap);
