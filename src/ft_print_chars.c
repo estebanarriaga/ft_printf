@@ -25,8 +25,6 @@ int ft_print_char(va_list ap)
 
 	size = 0;
 	c = va_arg(ap, int);
-	if (!c)
-		return (0);
 	size = write(1, &c, 1);
 	return (size);
 }

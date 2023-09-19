@@ -6,7 +6,7 @@
 /*   By: earriaga <earriaga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:27:06 by earriaga          #+#    #+#             */
-/*   Updated: 2023/09/18 17:02:00 by earriaga         ###   ########.fr       */
+/*   Updated: 2023/09/19 21:32:38 by earriaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,10 @@ static int	ft_print_variable(va_list ap, char c)
 		size = ft_print_char(ap);
 	else if (c == 's')
 		size = ft_print_str(ap);
-	else if (c == 'i')
-		size = ft_print_int(ap);
-	else if (c == 'd')
-		size = ft_print_decimal(ap);
+	else if (c == 'i' || c == 'd')
+		size = ft_print_nbr(ap);
 	else if (c == 'p')
-		size = ft_print_ptr_hex(ap);
+		size = ft_print_ptr(ap);
 	else if (c == 'x')
 		size = ft_print_hex(ap, 'a');
 	else if (c == 'X')
@@ -63,7 +61,7 @@ static int	ft_print_variable(va_list ap, char c)
 	else if (c == '%')
 		size = ft_putchar(c);
 	else
-		size = write(1, &c, 1);
+		return (-1);
 	return (size);
 }
 
@@ -73,6 +71,8 @@ int	ft_printf(const char *str, ...)
 	int			count;
 	int			str_length;
 
+	if (str == NULL)
+		return (-1);
 	va_start(ap, str);
 	count = 0;
 	str_length = 0;

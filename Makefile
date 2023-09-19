@@ -13,7 +13,7 @@ AR			= ar rcs
 
 #Sources
 
-SRC_FILES	=	ft_printf ft_print_chars ft_print_num ft_print_hex
+SRC_FILES	=	ft_printf ft_print_chars ft_print_num ft_print_hex ft_print_ptr
 
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
