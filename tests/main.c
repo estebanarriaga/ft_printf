@@ -1,7 +1,6 @@
 
 #include "../include/ft_printf.h"
 #include <assert.h>
-#include <sys/time.h>
 
 int	main(int argc, char **argv)
 {

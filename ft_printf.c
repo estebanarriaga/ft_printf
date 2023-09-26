@@ -6,37 +6,10 @@
 /*   By: earriaga <earriaga@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:27:06 by earriaga          #+#    #+#             */
-/*   Updated: 2023/09/19 21:32:38 by earriaga         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:16:53 by earriaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/**
- * Escribe una librería que contenga la función
- * ft_printf(), que imite el printf() original
- * 
- * Funciones autorizadas: malloc, free, write,
- * va_start, va_arg, va_copy, va_end
- * 
- * No implementes la gestión del buffer del printf() original.
- * Deberás implementar las siguientes conversiones: cspdiuxX %
- * Tu función se comparará con el printf() original.
- * Tienes que usar el comando ar para crear tu librería.
- * El uso de libtool command is forbidden.
- * Tu archivo libftprintf.a deberá ser creado en la raiz de tu repositorio.
- * 
- * -- %c Imprime un solo carácter.
- * -- %s Imprime una string (como se define por defecto en C.
- * -- %p El puntero void * dado como argumento se imprime en formato hexadecimal.
- * -- %d Imprime un número decimal (base 10).
- * -- %i Imprime un entero en base 10.
- * -- %u Imprime un número decimal (base 10) sin signo.
- * -- %x Imprime un número hexadecimal (base 16) en minúsculas.
- * -- %X Imprime un número hexadecimal (base 16) en mayúsculas.
- * -- %% para imprimir el símbolo del porcentaje.
- */
-
-#include <stdarg.h>
-#include <unistd.h>
 #include "ft_printf.h"
 
 static int	ft_print_variable(va_list ap, char c)
@@ -68,8 +41,8 @@ static int	ft_print_variable(va_list ap, char c)
 int	ft_printf(const char *str, ...)
 {
 	va_list	ap;
-	int			count;
-	int			str_length;
+	int		count;
+	int		str_length;
 
 	if (str == NULL)
 		return (-1);
@@ -88,7 +61,6 @@ int	ft_printf(const char *str, ...)
 			str_length += write(1, &str[count], 1);
 		count++;
 	}
-
 	va_end(ap);
 	return (str_length);
-} 
+}
